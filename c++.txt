@@ -1,0 +1,62 @@
+Q 1 - C++ does not supports the following
+Multilevel inheritance
+Hierarchical inheritance
+Hybrid inheritance
+None of the above.
+None of the above.
+Q 2 - Choose the respective delete operator usage for the expression ‘ptr=new int[100]’.
+delete ptr;
+delete ptr[];
+delete[] ptr;
+[]delete ptr;
+delete[] ptr;
+Q 3 - A protected member of the class in accessible in
+Only same class
+Same class and derived class
+Outside the class
+None of the above.
+Same class and derived class
+Q 4 - Designer of C++ programming language.
+Charles Babbage
+Dennis Ritchie
+Brain Kernighan
+Bjarne Stroustrup
+Bjarne Stroustrup
+Q 5- What is a generic class.
+Function template
+Class template
+Inherited class
+None of the above.
+Class template
+Q 6 - The default executable generation on UNIX for a C++ program is ___
+a.exe
+a
+a.out
+out.a
+a.out
+Q 7 - How can we make an class act as an interface in C++?
+By only providing all the functions as virtual functions in the class.
+Defining the class following with the keyword virtual
+Defining the class following with the keyword interface
+Defining the class following with the keyword abstract
+By only providing all the functions as virtual functions in the class.
+Q 8 - What is the full form of RTTI.
+Runtime type identification
+Runtime template identification
+Robust Template Type Inheritance
+None of the above.
+Runtime type identification
+Q 9 - Following is the invalid inclusion of a file to the current program. Identify it
+#include <file>
+#include "file"
+#include < file
+All of the above are invalid
+Q 10 - One of the following is true for an inline function.
+It executes faster as it is treated as a macro internally
+It executes faster because it priority is more than normal function
+It doesn’t executes faster compared to a normal function
+None of the above holds true for an inline function
+
+
+
+

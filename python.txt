@@ -1,0 +1,60 @@
+What is a correct syntax to output "Hello World" in Python?
+echo "Hello World"
+echo("Hello World");
+p("Hello World")
+print("Hello World") 
+print("Hello World")       
+How do you insert COMMENTS in Python code?
+/*This is a comment*/
+#This is a comment      
+//This is a comment
+&This is a comment
+#This is a comment     
+Which one is NOT a legal variable name?
+Myvar
+my-var
+my_var
+_myvar
+my-var
+How do you create a variable with the numeric value 5?
+x = int(5)
+Both the other answers are correct   
+x = 5
+integer = 5
+Both the other answers are correct 
+What is the correct file extension for Python files?
+.py    
+.pt
+.pyt
+.pyth
+.py
+How do you create a variable with the floating number 2.8?
+Both the other answers are correct   
+x = float(2.8)
+x = 2.8
+x ==2.8
+Both the other answers are correct
+What is the correct syntax to output the type of a variable or object in Python?
+print(typeOf(x))
+print(typeof(x))
+print(typeof x)
+print(type(x)) 
+print(type(x))   
+What is the correct way to create a function in Python?
+def myFunction():    
+function myfunction():
+create myFunction():
+addnew myFunction(): 
+def myFunction(): 
+In Python, 'Hello', is the same as "Hello"
+True   
+False
+0
+Both the other answers are correct   
+True
+What is a correct syntax to return the first character in a string?
+x = sub("Hello", 0, 1)
+x = "Hello"[0]    
+x = "Hello".sub(0, 1)
+x = Hello[0]   
+x = "Hello"[0]   
