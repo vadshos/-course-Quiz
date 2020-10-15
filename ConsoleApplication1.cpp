@@ -13,19 +13,15 @@ int QuentityQuizzes = 2;
 int QuentityQuestion = 10;
 bool SingIn = false;
 string login;
+bool bigGame = true;
+bool BigWin = false;
 int win = 0;
 void SetColor(int text, int bg) {
 	HANDLE hStdOut = GetStdHandle(STD_OUTPUT_HANDLE);
 	SetConsoleTextAttribute(hStdOut, (WORD)((bg << 4) | text));
 }
-#include<windows.h>
 using namespace std;
 
-//--для установки увеличенного шрифта в консоли средствами Windows
-// прототип недокументированый функции
-typedef BOOL(WINAPI* SETCONSOLEFONT)(HANDLE, DWORD);
-SETCONSOLEFONT SetConsoleFont;
-//-
 struct Options
 {
 	string variants;
@@ -44,16 +40,31 @@ struct Quizzes
 	string name;
 };
 
-void LogicGame(Quizzes quiz) {
+void BigGame(string name) {
+	ifstream files;
+	string s = "BigGame";
+	string options;
+	s += name;
+	files.open(s);	
+	s = "";
+	getline(files, s);
+	cout << s;
+	getline(files, s);
+	cout << "correct answer-> ";
+	cin >> options;
+	if (options == s) {
+		BigWin = true;
+	}
+}
+
+void LogicGame(Quizzes quiz,string name) {
 	int xp = 0;
 	for (int j = 0; j < 10; j++)
 	{
-
 		cout << quiz.query[j].question << endl;
 		for (int i = 0; i < 4; i++)
 		{
-			cout << quiz.query[j].option[i].variants << endl;
-			
+			cout << quiz.query[j].option[i].variants << endl;			
 		}
 		SetColor(5, 15);
 		cout << "True options " << win << "/10" << endl;
@@ -78,9 +89,7 @@ void LogicGame(Quizzes quiz) {
 		}
 		Clear;
 		cout << quiz.query[j].question << endl;
-		bool IsTrue = false;
-		
-			
+		bool IsTrue = false;					
 				if (wins == false) {
 					for (int i = 0; i < QuentityVariants; i++) {
 						if (i == index) {
@@ -110,8 +119,7 @@ void LogicGame(Quizzes quiz) {
 				}
 				Sleep(1500);
 				Clear;
-			SetColor(15, 0);
-		
+			SetColor(15, 0);	
 	}
 	ifstream ListAdd;
 	int count = 0;
@@ -137,46 +145,128 @@ void LogicGame(Quizzes quiz) {
 	cout<<"True options " << win<<"/10"<<endl;
 	SetColor(15, 0);
 	cout << endl;
-	int index = -1;
-	for (int i = 0; i < (count*2)+1; i++) {
-		if (arr1[i] == login) {
-			index = i;
+	if (win > 7) {
+		cout << "Do you want to play a big game, win multiply your winnings twice lose lose your winnings.1.yes 2.no " << endl;
+		int  achion = 0;
+		cin >> achion;
+		if (achion == 1) {
+			BigGame(name);
 		}
 	}
-
-	stringstream geek(arr1[index+2]);
-	int a = 0;
-	geek << a;
-	xp += a;
-	
-	
-	ofstream List;
-	List.open("list.txt");
-	for (int i = 0; i < count; i++) {
-		if (i == index) {
-			List << arr1[i] << endl;
-			List << xp << endl;
-			i++;
+	if (bigGame == true&&BigWin == true) {
+		int index = -1;
+		for (int i = 0; i < (count * 2) + 1; i++) {
+			if (arr1[i] == login) {
+				index = i;
+			}
 		}
+		stringstream geek(arr1[index + 2]);
+		int a = 0;
+		geek << a;
+		xp += a;
+		xp*=2;
+		ofstream List;
+		List.open("list.txt");
+		for (int i = 0; i < count; i++) {
+			if (i == index) {
+				List << arr1[i] << endl;
+				List << xp << endl;
+				i++;
+			}
+			else {
+				List << arr1[i] << endl;
+			}
+		}
+		if (index == -1) {
+			for (int i = 0; i < count; i++) {
+				if (i == count - 1) {
+					List << login << endl;
+					List << xp << endl;
+					i++;
+				}
+				else {
+					List << arr1[i] << endl;
+				}
+			}
+		}
+		List.close();
+	}else if (bigGame == false ) {
+		int index = -1;
+		for (int i = 0; i < (count * 2) + 1; i++) {
+			if (arr1[i] == login) {
+				index = i;
+			}
+		}
+		stringstream geek(arr1[index + 2]);
+		int a = 0;
+		geek << a;
+		xp += a;
+		ofstream List;
+		List.open("list.txt");
+		for (int i = 0; i < count; i++) {
+			if (i == index) {
+				List << arr1[i] << endl;
+				List << xp << endl;
+				i++;
+			}
+			else {
+				List << arr1[i] << endl;
+			}
+		}
+		if (index == -1) {
+			for (int i = 0; i < count; i++) {
+				if (i == count - 1) {
+					List << login << endl;
+					List << xp << endl;
+					i++;
+				}
+				else {
+					List << arr1[i] << endl;
+				}
+			}
+		}
+		List.close();
+	}
+	else if(bigGame == true && BigWin != true){
+		int index = -1;
+		for (int i = 0; i < (count * 2) + 1; i++) {
+			if (arr1[i] == login) {
+				index = i;
+			}
+		}
+
 		
-		else {
-			List << arr1[i] << endl;
-		}
-	}
-	 if (index == -1) {
-		 for (int i = 0; i < count; i++) {
-			 if (i == count-1) {
-				 List << login << endl;
-				 List << xp << endl;
-				 i++;
-			 }
+		xp = 0;
 
-			 else {
-				 List << arr1[i] << endl;
-			 }
-		 }
+
+		ofstream List;
+		List.open("list.txt");
+		for (int i = 0; i < count; i++) {
+			if (i == index) {
+				List << arr1[i] << endl;
+				List << xp << endl;
+				i++;
+			}
+
+			else {
+				List << arr1[i] << endl;
+			}
 		}
-	List.close();
+		if (index == -1) {
+			for (int i = 0; i < count; i++) {
+				if (i == count - 1) {
+					List << login << endl;
+					List << xp << endl;
+					i++;
+				}
+
+				else {
+					List << arr1[i] << endl;
+				}
+			}
+		}
+		List.close();
+	}
 }
 void randomQuiz() {
 	ifstream files;
@@ -225,9 +315,8 @@ void randomQuiz() {
 
 		}
 	}
-	LogicGame(quiz);
+	LogicGame(quiz,name);
 }
-
 void outputQuizzer(int a) {
 	ifstream files;
 	string name;
@@ -272,8 +361,6 @@ void outputQuizzer(int a) {
 	files.open(name);
 	count = 0;
 	string* arr2 = new string[count];
-	
-
 	Quizzes quiz;
 	for (int i = 0; i < QuentityQuestion; i++) {
 		getline(files, quiz.query[i].question);
@@ -294,9 +381,8 @@ void outputQuizzer(int a) {
 		  
 		}
 	}
-	LogicGame(quiz);
+	LogicGame(quiz,name);
 }
-
 void List() {
 	int achion = 0;
 	while (achion != 6) {
@@ -307,8 +393,7 @@ void List() {
 		cout << "4.Random quiz" << endl;
 		cout << "5.List statik users" << endl;
 		cout << "6.EXIT" << endl;
-		cout << "Enter achion-> ";
-		
+		cout << "Enter achion-> ";		
 		cin >> achion;
 		Clear;
 		if (achion > 0 && achion < 4) {
@@ -330,22 +415,15 @@ void List() {
 				}
 			}
 		}
-	}
-	
+	}	
 }
-
 void Login() {
-	
-	
-
-
 	system("mode con cols=25 lines=10");
 	string password;
 	cout << "\tLOGIN" << endl;
 	cout << "\t ";
 	cin >> login;
-	cout << "\tPASSWORD" << endl;
-	
+	cout << "\tPASSWORD" << endl;	
 	cout << "\t";
 	cin >> password;
 	ifstream singIn;
@@ -367,8 +445,7 @@ void Login() {
 		}
 		if (isTruePassword == true && isTrueLogin == true) {
 			SingIn = true;
-		}
-		
+		}		
 		List();
 	}
 	singIn.close();

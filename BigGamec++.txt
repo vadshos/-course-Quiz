@@ -1,0 +1,2 @@
+What function can convert the array char to int
+atoi
