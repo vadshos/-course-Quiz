@@ -4,7 +4,8 @@
 #include<ctime>
 #include <sstream> 
 #include"windows.h"
-
+#include <cstdlib>
+#define Clear system("cls");
 
 using namespace std;
 int QuentityVariants = 4;
@@ -17,6 +18,14 @@ void SetColor(int text, int bg) {
 	HANDLE hStdOut = GetStdHandle(STD_OUTPUT_HANDLE);
 	SetConsoleTextAttribute(hStdOut, (WORD)((bg << 4) | text));
 }
+#include<windows.h>
+using namespace std;
+
+//--для установки увеличенного шрифта в консоли средствами Windows
+// прототип недокументированый функции
+typedef BOOL(WINAPI* SETCONSOLEFONT)(HANDLE, DWORD);
+SETCONSOLEFONT SetConsoleFont;
+//-
 struct Options
 {
 	string variants;
@@ -67,7 +76,7 @@ void LogicGame(Quizzes quiz) {
 				}
 			}
 		}
-		system("cls");
+		Clear;
 		cout << quiz.query[j].question << endl;
 		bool IsTrue = false;
 		
@@ -100,7 +109,7 @@ void LogicGame(Quizzes quiz) {
 					}
 				}
 				Sleep(1500);
-				system("cls");
+				Clear;
 			SetColor(15, 0);
 		
 	}
@@ -250,10 +259,12 @@ void outputQuizzer(int a) {
 		delete[] temp;
 	}
 	for (int i = 0; i < count; i++) {
-		cout << i + 1 << ". " << arr1[i] << endl;
+		cout<<"" << i + 1 << ". " << arr1[i] << endl;
 	}
 	cout << "Enter number quizeer-> ";
 	cin >> achion;
+	Clear;
+	system("mode con cols=80 lines=10");
 	string txt = ".txt";
 	name = arr1[achion - 1];
 	name += txt;
@@ -297,7 +308,9 @@ void List() {
 		cout << "5.List statik users" << endl;
 		cout << "6.EXIT" << endl;
 		cout << "Enter achion-> ";
+		
 		cin >> achion;
+		Clear;
 		if (achion > 0 && achion < 4) {
 			outputQuizzer(achion);
 		}
@@ -322,14 +335,22 @@ void List() {
 }
 
 void Login() {
+	
+	
+
+
+	system("mode con cols=25 lines=10");
 	string password;
-	cout << "LOGIN" << endl;
+	cout << "\tLOGIN" << endl;
+	cout << "\t ";
 	cin >> login;
-	cout << "PASSWORD" << endl;
+	cout << "\tPASSWORD" << endl;
+	
+	cout << "\t";
 	cin >> password;
 	ifstream singIn;
 	singIn.open("D:\\Study IT STEP academy\\Новая папка\\ConsoleApplication1\\ConsoleApplication1\\users\\login.txt");
-
+	Clear;
 	
 	while (!singIn.eof()) {
 		bool isTrueLogin = false;
@@ -347,6 +368,7 @@ void Login() {
 		if (isTruePassword == true && isTrueLogin == true) {
 			SingIn = true;
 		}
+		
 		List();
 	}
 	singIn.close();
@@ -362,13 +384,12 @@ void Login() {
 		SingAdd.close();
 	}
 	
-	system("cls");
+	Clear;
 }
 
 int main() {
 	srand(time(NULL));
 	Login();
-
 
 	return 0;
 }
