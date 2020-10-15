@@ -1,0 +1,61 @@
+1. In which situation would an ESD strike potentially cause harm to the PC?
+when replacing a mechanical hard drive with an M.2 SSD
+when installing an additional display in a workplace cubicle
+when using a grounded mat and working on a computer on an ungrounded workbench
+when installing a dual-voltage power supply
+when replacing a mechanical hard drive with an M.2 SSD
+2. A person has started a new technical job. In which situation would ESD be an issue?
+when installing a processor
+when using a grounded mat and working on a computer on an ungrounded workbench
+when installing a dual-voltage power supply
+while exchanging one laptop AC adapter with one that is not from the original equipment manufacturer
+when installing a processor
+3. A technician is about to begin preventive maintenance on a company PC. In which situation would ESD be an issue?
+when replacing a motherboard
+while attaching speakers to a surround sound card
+when using a grounded mat and working on a computer on an ungrounded workbench
+when installing a dual-voltage power supply
+when replacing a motherboard
+4. An instructor has given a student an assignment to assemble a PC. In which situation should the student be aware that ESD is an issue?
+when installing RAM
+when working in a corporate environment that has carpet installed under tower PCs
+when using a grounded mat and working on a computer on an ungrounded workbench
+when installing a dual-voltage power supply
+when installing RAM
+5. What two motherboard components control the system boot operations? 
+BIOS chip - UEFI chip
+Northbridge chip
+Southbridge chip
+CPU
+BIOS chip - UEFI chip
+6. A technician is upgrading an ATX motherboard with another ATX motherboard. Which component might be affected by this and need to be upgraded  additional purchase?
+BIOS
+chipset
+CMOS battery
+CPU
+PCIe adapter
+CPU
+7. A customer has requested that a PC be built that will support eSATA. Which component should be checked to be sure that this feature is supported?
+CPU
+chipset
+hard disk
+RAM module
+chipset
+8. Which memory module used to hold instructions for booting a PC and loading the OS, but is still used on adapters even though the memory contents cannot be changed?
+RAM
+ROM
+cache
+main memory
+ROM
+9. What is a characteristic of DDR SDRAM?
+It transfers data twice per clock cycle compared to once per clock cycle for SDRAM.
+DDR SDRAM modules have double the number of pins of SDRAM memory modules.
+It is dynamic memory whereas SDRAM is static memory.
+It operates at double the voltage of SDRAM memory.
+It transfers data twice per clock cycle compared to once per clock cycle for SDRAM.
+10. What are two safety hazards when dealing with laser printers? 
+high voltage - hot components
+heavy metals
+proprietary power bricks
+unwieldy card cages
+high voltage - hot components

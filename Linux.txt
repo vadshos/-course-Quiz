@@ -1,0 +1,60 @@
+1. The reference time that the system time is calculated from is known as:
+GMT
+Epoch time 
+Base time
+UTC
+Epoch time 
+2. The date command is used for:
+Viewing current date and time
+Assigning filenames with timestamps suffixed to them in scripts
+Setting the system date and time
+All choices are valid 
+All choices are valid 
+3. The precision provided by NTP is on the order of:
+1 millisecond
+Tens of million seconds 
+1 second
+1 hour
+Tens of million seconds 
+4. Which of the following options, when used with the ntpd command, will perform a one time synchronization:
+–c
+–g
+–q 
+–N
+–q 
+5. The /etc/ntp.conf file lists three servers for querying. Two of them return the time 10:54:23 while the third one shows a different time (i.e. 10:50:37). The system will use which of the return values?
+It will use 10:54:23 since this is what the majority of servers indicate 
+It will use an average of the time
+It will use 10:50:37 if this is closer to the system’s current time
+It will use the time of the server that was queried first
+It will use 10:54:23 since this is what the majority of servers indicate 
+6. Two NTP servers are used by ntpd; one runs Stratum-2 clock while the other uses Stratum-4. Which one is considered to be more accurate?
+Stratum-2 
+It is impossible to tell by the Stratum number
+Stratum-4
+Both are equally accurate
+Stratum-2 
+7. To verify if a NTP server is available, which of the following commands should be executed?
+ntpdate –q 
+ntpdate
+ntpdate –t
+ntpdate –p
+ntpdate –q
+8. The daemon that provides logging services for applications and programs is:
+SNMP
+klogd
+syslogd 
+applog
+syslogd 
+9. System administrators can use logs for all of the following, except:
+Troubleshooting hardware
+Installing new packages 
+Troubleshooting software
+Tuning the system for efficiency or security
+Installing new packages
+10. Which of the following commands is not used to view log files on a Linux operating system?
+less
+tail
+grep
+echo  
+echo 
