@@ -11,6 +11,7 @@ int QuentityVariants = 4;
 int QuentityQuizzes = 2;
 int QuentityQuestion = 10;
 bool SingIn = false;
+string login;
 int win = 0;
 void SetColor(int text, int bg) {
 	HANDLE hStdOut = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -35,6 +36,7 @@ struct Quizzes
 };
 
 void LogicGame(Quizzes quiz) {
+	int xp = 0;
 	for (int j = 0; j < 10; j++)
 	{
 
@@ -47,12 +49,103 @@ void LogicGame(Quizzes quiz) {
 		int achion;
 		cout << "Enter option-> ";
 		cin >> achion;
+		int index = 0;
 		if (quiz.query[j].option[achion - 1].trueVariants == true) {
 			win++;
+			index = achion;
 		}
-
+		xp += (100 + rand() % 100)*(j + 1);
+		system("cls");
+		cout << quiz.query[j].question << endl;
+		bool IsTrue = false;
+		for (int i = 0; i < 4; i++)
+		{
+			
+			if (i == (achion - 1))
+			{
+				if (quiz.query[j].option[achion-1].trueVariants == false) {
+					IsTrue == false;
+				}
+				else if (quiz.query[j].option[achion - 1].trueVariants == true) {
+					IsTrue == true;
+				}
+			}
+			if (i == index) {
+				SetColor(2,0);
+				cout << quiz.query[j].option[i].variants << endl;
+			}
+			else if (i == (achion - 1) && IsTrue == false) {
+				SetColor(4, 0);
+				cout << quiz.query[j].option[i].variants << endl;
+			}
+			else {
+				SetColor(15, 0);
+				cout << quiz.query[j].option[i].variants << endl;
+			}
+			SetColor(15, 0);
+		}
 	}
+	ifstream ListAdd;
+	int count = 0;
+	string* arr1 = new string[count+1];
+	ListAdd.open("list.txt", ofstream::app);
+	while (!ListAdd.eof()) {
+		string* temp = new string[count + 1];
+		for (int i = 0; i < count; i++) {
+			temp[i] = arr1[i];
+		}
+		getline(ListAdd, temp[count]);
+		delete[] arr1;
+		count++;
+		arr1 = new string[count];
+		for (int i = 0; i < count; i++) {
+		arr1[i] = temp[i];
+		}
+		temp = nullptr;
+		delete[] temp;
+	}
+	ListAdd.close();
 	cout << win;
+	int index = -1;
+	for (int i = 0; i < count*2; i++) {
+		if (arr1[i] == login) {
+			index = i;
+		}
+	}
+
+	stringstream geek(arr1[index+1]);
+	int a = 0;
+	geek << a;
+	xp += a;
+	
+	
+	ofstream List;
+	List.open("list.txt");
+	for (int i = 0; i < count; i++) {
+		if (i == index) {
+			List << arr1[i] << endl;
+			List << xp << endl;
+			i++;
+		}
+		
+		else {
+			List << arr1[i] << endl;
+		}
+	}
+	 if (index == -1) {
+		 for (int i = 0; i < count; i++) {
+			 if (i == count-1) {
+				 List << login << endl;
+				 List << xp << endl;
+				 i++;
+			 }
+
+			 else {
+				 List << arr1[i] << endl;
+			 }
+		 }
+		}
+	List.close();
 }
 void randomQuiz() {
 	ifstream files;
@@ -269,38 +362,43 @@ void outputQuizzer(int a) {
 	}
 	LogicGame(quiz);
 }
+
 void List() {
-	cout << "List group quiz" << endl;
-	cout << "1.Programming" << endl;
-	cout << "2.Administration" << endl;
-	cout << "3.Life quiz" << endl;
-	cout << "4.Random quiz" << endl;
-	if (SingIn == true) {
-		cout << "5.Your quiz" << endl;
-		cout << "6.List statik users" << endl;
-	}
-	else {
-	cout << "5.List statik users" << endl;
-	}
 	int achion = 0;
-	cout << "Enter achion-> ";
-	cin >> achion;
-	if (achion > 0 && achion < 4) {
-		outputQuizzer(achion);
-	}
-	else if (achion == 4) {
+	while (achion != 6) {
+		cout << "List group quiz" << endl;
+		cout << "1.Programming" << endl;
+		cout << "2.Administration" << endl;
+		cout << "3.Life quiz" << endl;
+		cout << "4.Random quiz" << endl;
+		cout << "5.List statik users" << endl;
+		cout << "6.EXIT" << endl;
+		cout << "Enter achion-> ";
+		cin >> achion;
+		if (achion > 0 && achion < 4) {
+			outputQuizzer(achion);
+		}
+		else if (achion == 4) {
 
+		}
+		else if (achion == 5) {
+			ifstream List;
+			List.open("list.txt");
+			while (!List.eof()) {
+				string log = "";
+				string xp = "";
+				getline(List, log);
+				getline(List, xp);
+				if (log != "" && xp != "") {
+				cout << log << " - " << xp << endl;
+				}
+			}
+		}
 	}
-	else if (achion == 5) {
-
-	}
-	else if (achion == 6) {
-
-	}
+	
 }
 
 void Login() {
-	string login;
 	string password;
 	cout << "LOGIN" << endl;
 	cin >> login;
@@ -308,6 +406,7 @@ void Login() {
 	cin >> password;
 	ifstream singIn;
 	singIn.open("D:\\Study IT STEP academy\\Новая папка\\ConsoleApplication1\\ConsoleApplication1\\users\\login.txt");
+
 	
 	while (!singIn.eof()) {
 		bool isTrueLogin = false;
@@ -326,8 +425,6 @@ void Login() {
 			SingIn = true;
 		}
 		List();
-
-
 	}
 	singIn.close();
 	if (SingIn == false) {
@@ -343,8 +440,6 @@ void Login() {
 	}
 	
 	system("cls");
-	
-
 }
 
 int main() {

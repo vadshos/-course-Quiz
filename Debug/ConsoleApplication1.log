@@ -1,2 +1,4 @@
 ﻿  ConsoleApplication1.cpp
+D:\Study IT STEP academy\Новая папка\ConsoleApplication1\ConsoleApplication1\ConsoleApplication1.cpp(67,13): warning C4553: '==': result of expression not used; did you intend '='?
+D:\Study IT STEP academy\Новая папка\ConsoleApplication1\ConsoleApplication1\ConsoleApplication1.cpp(70,13): warning C4553: '==': result of expression not used; did you intend '='?
   ConsoleApplication1.vcxproj -> D:\Study IT STEP academy\Новая папка\ConsoleApplication1\Debug\ConsoleApplication1.exe
