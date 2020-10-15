@@ -54,15 +54,18 @@ void BigGame(string name) {
 	cin >> options;
 	if (options == s) {
 		BigWin = true;
+		cout << "You win big game my 	greeting";
 	}
+	Sleep(2000);
+	Clear;
 }
 
 void LogicGame(Quizzes quiz,string name) {
 	int xp = 0;
-	for (int j = 0; j < 10; j++)
+	for (int j = 0; j < QuentityQuestion; j++)
 	{
 		cout << quiz.query[j].question << endl;
-		for (int i = 0; i < 4; i++)
+		for (int i = 0; i < QuentityVariants; i++)
 		{
 			cout << quiz.query[j].option[i].variants << endl;			
 		}
@@ -164,7 +167,10 @@ void LogicGame(Quizzes quiz,string name) {
 		int a = 0;
 		geek << a;
 		xp += a;
+		cout << "You win " << xp << "xp"<<endl;
 		xp*=2;
+		cout << "And with x2 bonus you win " << xp << "xp";
+
 		ofstream List;
 		List.open("list.txt");
 		for (int i = 0; i < count; i++) {
@@ -237,6 +243,7 @@ void LogicGame(Quizzes quiz,string name) {
 
 		
 		xp = 0;
+		cout << "You win " << xp << "xp because you lose in big game";
 
 
 		ofstream List;
