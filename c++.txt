@@ -51,11 +51,13 @@ Q 9 - Following is the invalid inclusion of a file to the current program. Ident
 #include "file"
 #include < file
 All of the above are invalid
+#include < file
 Q 10 - One of the following is true for an inline function.
 It executes faster as it is treated as a macro internally
 It executes faster because it priority is more than normal function
 It doesn’t executes faster compared to a normal function
 None of the above holds true for an inline function
+It executes faster because it priority is more than normal function
 
 
 

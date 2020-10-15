@@ -46,44 +46,63 @@ void LogicGame(Quizzes quiz) {
 			cout << quiz.query[j].option[i].variants << endl;
 			
 		}
+		SetColor(5, 15);
+		cout << "True options " << win << "/10" << endl;
+		SetColor(15, 0);
 		int achion;
 		cout << "Enter option-> ";
 		cin >> achion;
 		int index = 0;
+		bool wins = false;
 		if (quiz.query[j].option[achion - 1].trueVariants == true) {
 			win++;
-			index = achion;
+			wins = true;
+			index = achion-1;
+		    xp += (100 + rand() % 100)*(j + 1);
 		}
-		xp += (100 + rand() % 100)*(j + 1);
+		else {
+			for (int g = 0; g < QuentityVariants; g++) {
+				if (quiz.query[j].option[g].trueVariants == true) {
+					index = g;
+				}
+			}
+		}
 		system("cls");
 		cout << quiz.query[j].question << endl;
 		bool IsTrue = false;
-		for (int i = 0; i < 4; i++)
-		{
+		
 			
-			if (i == (achion - 1))
-			{
-				if (quiz.query[j].option[achion-1].trueVariants == false) {
-					IsTrue == false;
+				if (wins == false) {
+					for (int i = 0; i < QuentityVariants; i++) {
+						if (i == index) {
+							SetColor(2, 0);
+						}else if(i == achion-1){
+							SetColor(4, 0);
+						}
+						else {
+							SetColor(15, 0);
+						}
+						cout << quiz.query[j].option[i].variants << endl;
+						SetColor(15, 0);
+					}
 				}
-				else if (quiz.query[j].option[achion - 1].trueVariants == true) {
-					IsTrue == true;
+				else {
+					for (int i = 0; i < QuentityVariants; i++)
+					{
+						if (i == index) {
+							SetColor(2, 0);
+						}
+						else {
+							SetColor(15, 0);
+						}
+					cout << quiz.query[j].option[i].variants << endl;
+					SetColor(15, 0);
+					}
 				}
-			}
-			if (i == index) {
-				SetColor(2,0);
-				cout << quiz.query[j].option[i].variants << endl;
-			}
-			else if (i == (achion - 1) && IsTrue == false) {
-				SetColor(4, 0);
-				cout << quiz.query[j].option[i].variants << endl;
-			}
-			else {
-				SetColor(15, 0);
-				cout << quiz.query[j].option[i].variants << endl;
-			}
+				Sleep(1500);
+				system("cls");
 			SetColor(15, 0);
-		}
+		
 	}
 	ifstream ListAdd;
 	int count = 0;
@@ -105,15 +124,18 @@ void LogicGame(Quizzes quiz) {
 		delete[] temp;
 	}
 	ListAdd.close();
-	cout << win;
+	SetColor(5, 15);
+	cout<<"True options " << win<<"/10"<<endl;
+	SetColor(15, 0);
+	cout << endl;
 	int index = -1;
-	for (int i = 0; i < count*2; i++) {
+	for (int i = 0; i < (count*2)+1; i++) {
 		if (arr1[i] == login) {
 			index = i;
 		}
 	}
 
-	stringstream geek(arr1[index+1]);
+	stringstream geek(arr1[index+2]);
 	int a = 0;
 	geek << a;
 	xp += a;
@@ -150,7 +172,7 @@ void LogicGame(Quizzes quiz) {
 void randomQuiz() {
 	ifstream files;
 	string name;
-	files.open("nameQuizzer.txt");
+	files.open("random.txt");
 	int count = 0;
 	string* arr1 = new string[count];
 	while (!files.eof()) {
@@ -171,19 +193,17 @@ void randomQuiz() {
 	string txt = ".txt";
 	name += txt;
 	files.close();
-	files.open(name);
-
-	string* arr2 = new string[count];
-
+	ifstream file;
+	file.open(name);
 
 	Quizzes quiz;
 	for (int i = 0; i < QuentityQuestion; i++) {
-		getline(files, quiz.query[i].question);
+		getline(file, quiz.query[i].question);
 		for (int j = 0; j < QuentityVariants; j++) {
-			getline(files, quiz.query[i].option[j].variants);
+			getline(file, quiz.query[i].option[j].variants);
 			if (j == QuentityVariants - 1) {
 				string TrueVar;
-				getline(files, TrueVar);
+				getline(file, TrueVar);
 				for (int g = 0; g < QuentityVariants; g++) {
 					if (quiz.query[i].option[g].variants == TrueVar) {
 						quiz.query[i].option[g].trueVariants = true;
@@ -198,104 +218,7 @@ void randomQuiz() {
 	}
 	LogicGame(quiz);
 }
-void addingNewQuizzer(string* name) {
-	ofstream file;
-	string txt = ".txt";
-	file << name << endl;
-	file.open("nameQuizzer.txt");//typing name in list quizzer
-	file << *name << endl;
-	*name += txt;
-	file.close();
-	file.open(*name);
-	int math = QuentityQuestion * QuentityVariants + QuentityVariants + 1;
-	string* str = new string[math];
-	int var = 0;
-	int counts = 0;
-	for (int i = 0; i < QuentityQuestion; i++) {
-		cout << "Enter qustion  -> ";
-		cin.ignore();
-		getline(cin, str[counts]);
-		counts++;
-		bool isTrue = false;
-		string IsTrue = "";
-		int VarForRetype = counts;
-		for (int j = 0; j < QuentityVariants; j++) {
-			cout << "Enter options  -> ";
-			cin.ignore();
-			getline(cin, str[counts]);
-			counts++;
-			if (isTrue == false) {
-				int achion = 0;
-				cout << "This is true options (1. yes 2. no) -> ";
-				cin >> achion;
-				if (achion == 1) {
-					counts--;
-					var = counts;
-					IsTrue = str[counts];
-					counts++;
-					isTrue = true;
-				}
-			}
-		}
-		if (IsTrue == "") {
-			cout << "You didn't choise true options\n 1. retype \n 2. choise true options  ";
-			int achion;
-			cin >> achion;
-			if (achion == 1) {
-				for (int j = 0; j < QuentityVariants; j++) {
-					cout << str[i] << endl;
-					cin.ignore();
-					string str2;
-					getline(cin, str[i]);
-					if (isTrue == false) {
-						int achion = 0;
-						cout << "This is true options (1. yes 2. no) -> ";
-						cin >> achion;
-						if (achion == 1) {
-							counts--;
-							str[var] = str[i];
-							counts++;
-							isTrue = true;
-						}
-					}
-				}
-			}
-			else {
-				for (int k = VarForRetype; k < (VarForRetype + QuentityVariants); k++) {
-					cout << str[k] << endl;
-					cin.ignore();
-					string str2;
-					getline(cin, str[i]);
-					if (isTrue == false) {
-						int achion = 0;
-						cout << "This is true options (1. yes 2. no) -> ";
-						cin >> achion;
-						if (achion == 1) {
 
-							str[var] = str[i];
-							isTrue = true;
-						}
-					}
-				}
-			}
-		}
-		else {
-			str[counts] = IsTrue;
-		}
-	}
-
-
-	file << QuentityQuestion << endl;
-	file << QuentityVariants << endl;
-	QuentityQuizzes++;
-	for (int i = 0; i < math; i++) {
-
-		file << str[i] << endl;
-	}
-	file.close();
-	delete[] str;
-
-}
 void outputQuizzer(int a) {
 	ifstream files;
 	string name;
@@ -379,7 +302,7 @@ void List() {
 			outputQuizzer(achion);
 		}
 		else if (achion == 4) {
-
+			randomQuiz();
 		}
 		else if (achion == 5) {
 			ifstream List;
@@ -443,7 +366,7 @@ void Login() {
 }
 
 int main() {
-	
+	srand(time(NULL));
 	Login();
 
 
