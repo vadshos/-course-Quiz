@@ -5,6 +5,7 @@
 #include <sstream> 
 #include"windows.h"
 #include <cstdlib>
+#include<conio.h>
 #define Clear system("cls");
 
 using namespace std;
@@ -96,15 +97,15 @@ void LogicGame(Quizzes quiz,string name) {
 				if (wins == false) {
 					for (int i = 0; i < QuentityVariants; i++) {
 						if (i == index) {
-							SetColor(2, 0);
+							SetColor(2, 15);
 						}else if(i == achion-1){
-							SetColor(4, 0);
+							SetColor(4, 15);
 						}
 						else {
-							SetColor(15, 0);
+							SetColor(0, 15);
 						}
 						cout << quiz.query[j].option[i].variants << endl;
-						SetColor(15, 0);
+						SetColor(0, 15);
 					}
 				}
 				else {
@@ -275,6 +276,19 @@ void LogicGame(Quizzes quiz,string name) {
 		List.close();
 	}
 }
+void rules() {
+	system("mode con cols=35 lines=20");
+	ifstream rul;
+	rul.open("rules.txt"); 
+	string r;
+	while (!rul.eof()) {
+		r = "";
+		getline(rul, r);
+		cout << r<<endl;
+	}
+	cin >> r;
+	system("mode con cols=25 lines=10");
+}
 void randomQuiz() {
 	ifstream files;
 	string name;
@@ -392,14 +406,15 @@ void outputQuizzer(int a) {
 }
 void List() {
 	int achion = 0;
-	while (achion != 6) {
+	while (achion != 7) {
 		cout << "List group quiz" << endl;
 		cout << "1.Programming" << endl;
 		cout << "2.Administration" << endl;
 		cout << "3.Life quiz" << endl;
 		cout << "4.Random quiz" << endl;
 		cout << "5.List statik users" << endl;
-		cout << "6.EXIT" << endl;
+		cout << "6.Rules" << endl;
+		cout << "7.EXIT" << endl;
 		cout << "Enter achion-> ";		
 		cin >> achion;
 		Clear;
@@ -421,35 +436,43 @@ void List() {
 				cout << log << " - " << xp << endl;
 				}
 			}
+		}else if (achion == 6) {
+			rules();
 		}
 	}	
 }
 void Login() {
+	SetColor(0, 15);
 	system("mode con cols=25 lines=10");
 	string password;
-	cout << "\tLOGIN" << endl;
+	cout << endl;
+	cout << "\t  LOGIN" << endl;
 	cout << "\t ";
 	cin >> login;
-	cout << "\tPASSWORD" << endl;	
-	cout << "\t";
+	cout << "\t PASSWORD" << endl;	
+	cout << "\t ";
 	cin >> password;
 	ifstream singIn;
 	singIn.open("D:\\Study IT STEP academy\\Новая папка\\ConsoleApplication1\\ConsoleApplication1\\users\\login.txt");
 	Clear;
-	
+	bool isTrueLogin = false;
+	bool isTruePassword = false;
 	while (!singIn.eof()) {
-		bool isTrueLogin = false;
-		bool isTruePassword = false;
+		isTrueLogin = false;
+		isTruePassword = false;
 		string l;
 		string p;
 		getline(singIn,l);
 		getline(singIn, p);
 		if (l == login) {
 			isTrueLogin = true;
+			if (p == password) {
+				isTruePassword = true;
+			}
+			break;
 		}
-		if (p == password) {
-			isTruePassword = true;
-		}
+		
+		
 		if (isTruePassword == true && isTrueLogin == true) {
 			SingIn = true;
 		}		
@@ -466,6 +489,18 @@ void Login() {
 		string str2 = "D:\\Study IT STEP academy\\Новая папка\\ConsoleApplication1\\ConsoleApplication1\\users\\"+login+".txt";
 		SingAdd.open(str2, ofstream::app);
 		SingAdd.close();
+
+	}if (isTrueLogin == true && isTruePassword == false) {
+		system("mode con cols=30 lines=10");
+		system("cls");
+		SetColor(4, 0);
+		cout<<"You enter incorect password "<<endl;
+		Sleep(2000);
+		SetColor(15, 0);
+		Login();
+	}
+	else {
+		List();
 	}
 	
 	Clear;
