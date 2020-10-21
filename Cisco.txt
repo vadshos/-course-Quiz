@@ -28,10 +28,9 @@ Northbridge chip
 Southbridge chip
 CPU
 BIOS chip - UEFI chip
-6. A technician is upgrading an ATX motherboard with another ATX motherboard. Which component might be affected by this and need to be upgraded  additional purchase?
+6. A technician is upgrading an ATX  with another ATX motherboard. Which component might be affected by this and need to be upgraded  additional purchase?
 BIOS
 chipset
-CMOS battery
 CPU
 PCIe adapter
 CPU

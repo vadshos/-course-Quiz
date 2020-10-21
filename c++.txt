@@ -58,7 +58,3 @@ It executes faster because it priority is more than normal function
 It doesn’t executes faster compared to a normal function
 None of the above holds true for an inline function
 It executes faster because it priority is more than normal function
-
-
-
-
