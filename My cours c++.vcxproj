@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{2cd223c5-a381-4c99-a521-b0ebdbce4873}</ProjectGuid>
-    <RootNamespace>ConsoleApplication1</RootNamespace>
+    <ProjectGuid>{eddfc90f-6e14-4e64-8dc9-4af9a69372ce}</ProjectGuid>
+    <RootNamespace>Mycoursc</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -139,7 +139,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="ConsoleApplication1.cpp" />
+    <ClCompile Include="BigGame.cpp" />
+    <ClCompile Include="Fuction.cpp" />
+    <ClCompile Include="My cours c++.cpp" />
+    <ClCompile Include="SetColor.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Fuction.h" />
+    <ClInclude Include="Options.h" />
+    <ClInclude Include="Questions.h" />
+    <ClInclude Include="Quizzes.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,54 +1,14 @@
-﻿#include<iostream>
-#include<string>
-#include<fstream>
-#include<ctime>
-#include <sstream> 
-#include"windows.h"
-#include <cstdlib>
+#include"Quizzes.h"
+#include "Fuction.h"
 #include<conio.h>
-#define Clear system("cls");
 
-using namespace std;
-int QuentityVariants = 4;
-int QuentityQuizzes = 2;
-int QuentityQuestion = 10;
-bool SingIn = false;
-string login;
-bool FirstLogin = false;
-bool bigGame = false;
-bool BigWin = false;
-int win = 0;
-void SetColor(int text, int bg) {
-	HANDLE hStdOut = GetStdHandle(STD_OUTPUT_HANDLE);
-	SetConsoleTextAttribute(hStdOut, (WORD)((bg << 4) | text));
-}
-using namespace std;
-
-struct Options
-{
-	string variants;
-	bool trueVariants;
-};
-
-struct Questions
-{
-	Options* option = new Options[QuentityVariants];
-	string question;
-
-};
-struct Quizzes
-{
-	Questions* query = new Questions[QuentityQuestion];
-	string name;
-};
-
-void BigGame(string name) {
+void BigGame(Quizzes quiz,string name) {
 	SetColor(0, 15);
 	ifstream files;
-	string s = "BigGame";
+	string s = "quiz.bigGame";
 	string options;
 	s += name;
-	files.open(s);	
+	files.open(s);
 	s = "";
 	getline(files, s);
 	cout << s;
@@ -56,17 +16,19 @@ void BigGame(string name) {
 	cout << "correct answer-> ";
 	cin >> options;
 	if (options == s) {
-		BigWin = true;
+		quiz.BigWin = true;
 		cout << "You win big game my greeting";
 	}
 	Sleep(2000);
 	Clear;
 }
 
-void LogicGame(Quizzes quiz,string name) {
+void LogicGame(Quizzes quiz, string name)
+{
+	int win = 0;
 	int xp = 0;
 	int achion = 0;
-	int* UsedNumber = new int[QuentityQuestion];
+	int* UsedNumber = new int[quiz.QuentityQuestion];
 	int* arr = new int[10];
 	int  k = 0;
 	while (k != 10) {
@@ -88,14 +50,14 @@ void LogicGame(Quizzes quiz,string name) {
 		}
 
 	}
-	for (int g = 0; g < QuentityQuestion; g++)
+	for (int g = 0; g < quiz.QuentityQuestion; g++)
 	{
 		int j = arr[g];
 		int a = 0;
 		while (a != 13) {
 			system("cls");
 			cout << quiz.query[j].question << endl;
-			for (int i = 0; i < QuentityVariants; i++) {
+			for (int i = 0; i < quiz.query[g].QuentityVariants; i++) {
 				if (i == achion) {
 					SetColor(0, 14);
 				}
@@ -104,7 +66,7 @@ void LogicGame(Quizzes quiz,string name) {
 				}
 				cout << quiz.query[j].option[i].variants << endl;
 				SetColor(0, 15);
-				
+
 			}
 			SetColor(5, 15);
 			cout << "True options " << win << "/10" << endl;
@@ -113,76 +75,77 @@ void LogicGame(Quizzes quiz,string name) {
 			if (a == 119) {
 				achion--;
 				if (achion < 1) {
-					achion = QuentityVariants - 1;
+					achion = quiz.query[g].QuentityVariants - 1;
 				}
 			}
 			else if (a == 115) {
 				achion++;
-				if (achion > QuentityVariants-1) {
+				if (achion > quiz.query[g].QuentityVariants - 1) {
 					achion = 0;
 				}
 			}
 		}
 		SetColor(5, 15);
-		
+
 		SetColor(0, 15);
-	
+
 		int index = 0;
 		bool wins = false;
 		if (quiz.query[j].option[achion].trueVariants == true) {
 			win++;
 			wins = true;
 			index = achion;
-		    xp += (100 + rand() % 100)*(j + 1);
+			xp += (100 + rand() % 100) * (j + 1);
 		}
 		else {
-			for (int g = 0; g < QuentityVariants; g++) {
-				if (quiz.query[j].option[g].trueVariants == true) {
-					index = g;
+			for (int k = 0; k < quiz.query[k].QuentityVariants; k++) {
+				if (quiz.query[j].option[k].trueVariants == true) {
+					index = k;
 				}
 			}
 		}
 		Clear;
 		SetColor(0, 15);
 		cout << quiz.query[j].question << endl;
-		bool IsTrue = false;					
-				if (wins == false) {
-					for (int i = 0; i < QuentityVariants; i++) {
-						if (i == index) {
-							SetColor(2, 15);
-						}else if(i == achion){
-							SetColor(4, 15);
-						}
-						else {
-							SetColor(0, 15);
-						}
-						cout << quiz.query[j].option[i].variants << endl;
-						SetColor(0, 15);
-					}
+		bool IsTrue = false;
+		if (wins == false) {
+			for (int i = 0; i < quiz.query[g].QuentityVariants; i++) {
+				if (i == index) {
+					SetColor(2, 15);
+				}
+				else if (i == achion) {
+					SetColor(4, 15);
 				}
 				else {
-					for (int i = 0; i < QuentityVariants; i++)
-					{
-						if (i == index) {
-							SetColor(2, 15);
-						}
-						else {
-							SetColor(0, 15);
-						}
-					cout << quiz.query[j].option[i].variants << endl;
 					SetColor(0, 15);
-					}
 				}
-				SetColor(5, 15);
-
-				cout << "True options " << win << "/10" << endl;
+				cout << quiz.query[j].option[i].variants << endl;
 				SetColor(0, 15);
-				Sleep(1500);
-				Clear;
-			SetColor(0, 15);	
+			}
+		}
+		else {
+			for (int i = 0; i < quiz.query[g].QuentityVariants; i++)
+			{
+				if (i == index) {
+					SetColor(2, 15);
+				}
+				else {
+					SetColor(0, 15);
+				}
+				cout << quiz.query[j].option[i].variants << endl;
+				SetColor(0, 15);
+			}
+		}
+		SetColor(5, 15);
+
+		cout << "True options " << win << "/10" << endl;
+		SetColor(0, 15);
+		Sleep(1500);
+		Clear;
+		SetColor(0, 15);
 	}
 	SetColor(5, 15);
-	cout<<"True options " << win<<"/10"<<endl;
+	cout << "True options " << win << "/10" << endl;
 	SetColor(0, 15);
 	cout << endl;
 	if (win > 7) {
@@ -190,9 +153,9 @@ void LogicGame(Quizzes quiz,string name) {
 		int  achion = 0;
 		cin >> achion;
 		if (achion == 1) {
-			bigGame = true;
-			BigGame(name);
-			if (BigWin == true) {
+			quiz.bigGame = true;
+			BigGame(quiz , name);
+			if (quiz.BigWin == true) {
 				int index = 0;
 				ifstream ReadList;
 				ReadList.open("list.txt");
@@ -206,7 +169,7 @@ void LogicGame(Quizzes quiz,string name) {
 
 					}
 					getline(ReadList, temp[count]);
-					if (temp[count] == login) {
+					if (temp[count] == quiz.login) {
 						index = j;
 					}
 					count++;
@@ -221,29 +184,29 @@ void LogicGame(Quizzes quiz,string name) {
 				ReadList.close();
 				ofstream WriteList;
 				WriteList.open("list.txt");
-				
-				if (FirstLogin == false) {
-				for (int i = 0; i < count; i++) {
-					int a = stoi(list[index + 1]);
-					xp += a;
-					cout << "You win " << xp << " xp" << endl;
-					xp *= 2;
-					cout << " But you win " << xp << " xp because you win big game" << endl;
-					Sleep(1000);
-					if (i == index + 1) {
-						WriteList << xp << endl;
+
+				if (quiz.FirstLogin == false) {
+					for (int i = 0; i < count; i++) {
+						int a = stoi(list[index + 1]);
+						xp += a;
+						cout << "You win " << xp << " xp" << endl;
+						xp *= 2;
+						cout << " But you win " << xp << " xp because you win big game" << endl;
+						Sleep(1000);
+						if (i == index + 1) {
+							WriteList << xp << endl;
+						}
+						else {
+							WriteList << list[i] << endl;
+						}
 					}
-					else {
-						WriteList << list[i] << endl;
-					}
-				}
 				}
 				else {
-					WriteList << login << endl;
+					WriteList << quiz.login << endl;
 					WriteList << xp << endl;
 					for (int i = 0; i < count; i++) {
-							WriteList << list[i] << endl;
-						
+						WriteList << list[i] << endl;
+
 					}
 				}
 				WriteList.close();
@@ -262,7 +225,7 @@ void LogicGame(Quizzes quiz,string name) {
 
 					}
 					getline(ReadList, temp[count]);
-					if (temp[count] == login) {
+					if (temp[count] == quiz.login) {
 						index = j;
 					}
 					count++;
@@ -277,10 +240,10 @@ void LogicGame(Quizzes quiz,string name) {
 				ReadList.close();
 				ofstream WriteList;
 				WriteList.open("list.txt");
-				xp =0;
+				xp = 0;
 				cout << "You win 0 xp because you lose big game" << endl;
 				Sleep(1000);
-				if (FirstLogin == false) {
+				if (quiz.FirstLogin == false) {
 					for (int i = 0; i < count; i++) {
 						if (i == index + 1) {
 							WriteList << xp << endl;
@@ -291,7 +254,7 @@ void LogicGame(Quizzes quiz,string name) {
 					}
 				}
 				else {
-					WriteList << login << endl;
+					WriteList << quiz.login << endl;
 					WriteList << xp << endl;
 					for (int i = 0; i < count; i++) {
 						WriteList << list[i] << endl;
@@ -314,11 +277,11 @@ void LogicGame(Quizzes quiz,string name) {
 
 				}
 				getline(ReadList, temp[count]);
-				if (temp[count] == login) {
+				if (temp[count] == quiz.login) {
 					index = j;
 				}
 				count++;
-				list = new string[count]; 
+				list = new string[count];
 				for (int i = 0; i < count; i++) {
 					list[i] = temp[i];
 				}
@@ -330,7 +293,7 @@ void LogicGame(Quizzes quiz,string name) {
 			ofstream WriteList;
 			WriteList.open("list.txt");
 			Sleep(1000);
-			if (FirstLogin == false) {
+			if (quiz.FirstLogin == false) {
 				int a = stoi(list[index + 1]);
 				xp += a;
 				cout << "You win " << xp << " xp" << endl;
@@ -344,7 +307,7 @@ void LogicGame(Quizzes quiz,string name) {
 				}
 			}
 			else {
-				WriteList << login << endl;
+				WriteList << quiz.login << endl;
 				WriteList << xp << endl;
 				for (int i = 0; i < count; i++) {
 					WriteList << list[i] << endl;
@@ -352,7 +315,8 @@ void LogicGame(Quizzes quiz,string name) {
 			}
 			WriteList.close();
 		}
-	}else {
+	}
+	else {
 		int index = 0;
 		ifstream ReadList;
 		ReadList.open("list.txt");
@@ -366,7 +330,7 @@ void LogicGame(Quizzes quiz,string name) {
 
 			}
 			getline(ReadList, temp[count]);
-			if (temp[count] == login) {
+			if (temp[count] == quiz.login) {
 				index = j;
 			}
 			count++;
@@ -381,8 +345,8 @@ void LogicGame(Quizzes quiz,string name) {
 		ReadList.close();
 		ofstream WriteList;
 		WriteList.open("list.txt");
-		
-		if (FirstLogin == false) {
+
+		if (quiz.FirstLogin == false) {
 			int a = stoi(list[index + 1]);
 			xp += a;
 			for (int i = 0; i < count; i++) {
@@ -395,7 +359,7 @@ void LogicGame(Quizzes quiz,string name) {
 			}
 		}
 		else {
-			WriteList << login << endl;
+			WriteList << quiz.login << endl;
 			WriteList << xp << endl;
 			for (int i = 0; i < count; i++) {
 				WriteList << list[i] << endl;
@@ -405,22 +369,8 @@ void LogicGame(Quizzes quiz,string name) {
 	}
 	win = 0;
 	xp = 0;
-	}
-
-void rules() {
-	system("mode con cols=35 lines=20");
-	ifstream rul;
-	rul.open("rules.txt"); 
-	string r;
-	while (!rul.eof()) {
-		r = "";
-		getline(rul, r);
-		cout << r<<endl;
-	}
-	system("pause");
-	system("mode con cols=25 lines=10");
 }
-void randomQuiz() {
+void randomQuiz(Quizzes quiz) {
 	system("mode con cols=80 lines=10");
 	ifstream files;
 	string name;
@@ -448,15 +398,15 @@ void randomQuiz() {
 	ifstream file;
 	file.open(name);
 
-	Quizzes quiz;
-	for (int i = 0; i < QuentityQuestion; i++) {
+	
+	for (int i = 0; i < quiz.QuentityQuestion; i++) {
 		getline(file, quiz.query[i].question);
-		for (int j = 0; j < QuentityVariants; j++) {
+		for (int j = 0; j < quiz.query[i].QuentityVariants; j++) {
 			getline(file, quiz.query[i].option[j].variants);
-			if (j == QuentityVariants - 1) {
+			if (j == quiz.query[i].QuentityVariants - 1) {
 				string TrueVar;
 				getline(file, TrueVar);
-				for (int g = 0; g < QuentityVariants; g++) {
+				for (int g = 0; g < quiz.query[i].QuentityVariants; g++) {
 					if (quiz.query[i].option[g].variants == TrueVar) {
 						quiz.query[i].option[g].trueVariants = true;
 					}
@@ -468,9 +418,22 @@ void randomQuiz() {
 
 		}
 	}
-	LogicGame(quiz,name);
+	LogicGame(quiz, name);
 }
-void outputQuizzer(int a) {
+void rules() {
+	system("mode con cols=35 lines=20");
+	ifstream rul;
+	rul.open("rules.txt");
+	string r;
+	while (!rul.eof()) {
+		r = "";
+		getline(rul, r);
+		cout << r << endl;
+	}
+	system("pause");
+	system("mode con cols=25 lines=10");
+}
+void outputQuizzer( int a ) {
 	ifstream files;
 	string name;
 	int achion = 0;
@@ -483,8 +446,8 @@ void outputQuizzer(int a) {
 	else if (a == 3) {
 		files.open("nameQuizzerLife.txt");
 	}
-	
-	
+
+
 	int count = 0;
 	string* arr1 = new string[count];
 	while (!files.eof()) {
@@ -498,7 +461,7 @@ void outputQuizzer(int a) {
 		arr1 = new string[count];
 		for (int i = 0; i < count; i++) {
 
-		arr1[i] = temp[i];
+			arr1[i] = temp[i];
 		}
 		temp = nullptr;
 		delete[] temp;
@@ -509,7 +472,7 @@ void outputQuizzer(int a) {
 	}
 	count++;
 	arr1 = new string[count];
-	temp[count-1] = "back";
+	temp[count - 1] = "back";
 	for (int i = 0; i < count; i++) {
 
 		arr1[i] = temp[i];
@@ -526,7 +489,7 @@ void outputQuizzer(int a) {
 			cout << arr1[i] << endl;
 			SetColor(0, 15);
 		}
-		
+
 		a = _getch();
 		if (a == 119) {
 			achion--;
@@ -541,11 +504,11 @@ void outputQuizzer(int a) {
 			}
 		}
 	}
-	
-	
 
-	
-	if (achion != count-1) {
+
+
+
+	if (achion != count - 1) {
 		Clear;
 		system("mode con cols=80 lines=10");
 		string txt = ".txt";
@@ -556,14 +519,14 @@ void outputQuizzer(int a) {
 		count = 0;
 		string* arr2 = new string[count];
 		Quizzes quiz;
-		for (int i = 0; i < QuentityQuestion; i++) {
+		for (int i = 0; i < quiz.QuentityQuestion; i++) {
 			getline(files, quiz.query[i].question);
-			for (int j = 0; j < QuentityVariants; j++) {
+			for (int j = 0; j < quiz.query[i].QuentityVariants; j++) {
 				getline(files, quiz.query[i].option[j].variants);
-				if (j == QuentityVariants - 1) {
+				if (j == quiz.query[i].QuentityVariants - 1) {
 					string TrueVar;
 					getline(files, TrueVar);
-					for (int g = 0; g < QuentityVariants; g++) {
+					for (int g = 0; g < quiz.query[i].QuentityVariants; g++) {
 						if (quiz.query[i].option[g].variants == TrueVar) {
 							quiz.query[i].option[g].trueVariants = true;
 						}
@@ -590,17 +553,17 @@ void List() {
 			"4.Random quiz",
 			"5.List statik users",
 			"6.Rules" ,
-			"7.EXIT" 
+			"7.EXIT"
 		};
-			
+
 		int a = 0;
 		while (a != 13) {
 			system("cls");
 			for (int i = 0; i < 8; i++) {
-				if (i == achion ) {
+				if (i == achion) {
 					SetColor(0, 14);
 				}
-				if (i != achion ) {
+				if (i != achion) {
 					SetColor(0, 15);
 				}
 				cout << list[i] << endl;
@@ -625,7 +588,8 @@ void List() {
 			outputQuizzer(achion);
 		}
 		else if (achion == 4) {
-			randomQuiz();
+			Quizzes quiz;
+			randomQuiz( quiz);
 		}
 		else if (achion == 5) {
 			ifstream List;
@@ -640,12 +604,13 @@ void List() {
 				}
 			}
 			system("pause");
-		}else if (achion == 6) {
+		}
+		else if (achion == 6) {
 			rules();
 		}
-	}	
+	}
 }
-void Login() {
+void Login(Quizzes quiz) {
 	system("title Game Quiz");
 	SetColor(0, 15);
 	system("mode con cols=25 lines=10");
@@ -653,12 +618,12 @@ void Login() {
 	cout << endl;
 	cout << "\t  LOGIN" << endl;
 	cout << "\t ";
-	cin >> login;
-	cout << "\t PASSWORD" << endl;	
+	cin >> quiz.login;
+	cout << "\t PASSWORD" << endl;
 	cout << "\t ";
 	cin >> password;
 	ifstream singIn;
-	singIn.open("D:\\Study IT STEP academy\\Новая папка\\ConsoleApplication1\\ConsoleApplication1\\users\\login.txt");
+	singIn.open("C:\\Users\\VS\\source\\repos\\My cours c++\\My cours c++\\users\\login.txt");
 	Clear;
 	bool isTrueLogin = false;
 	bool isTruePassword = false;
@@ -667,56 +632,49 @@ void Login() {
 		isTruePassword = false;
 		string l;
 		string p;
-		getline(singIn,l);
+		getline(singIn, l);
 		getline(singIn, p);
-		if (l == login) {
+		if (l == quiz.login) {
 			isTrueLogin = true;
 			if (p == password) {
 				isTruePassword = true;
 			}
 			break;
 		}
-		
+
 		if (isTrueLogin == false) {
-			FirstLogin = true;
+			quiz.FirstLogin = true;
 		}
 		if (isTruePassword == true && isTrueLogin == true) {
-			SingIn = true;
-		}		
+			quiz.SingIn = true;
+		}
 		List();
 	}
 	singIn.close();
-	if (SingIn == true) {
+	if (quiz.SingIn == true) {
 		ofstream SingAdd;
-		SingAdd.open("D:\\Study IT STEP academy\\Новая папка\\ConsoleApplication1\\ConsoleApplication1\\users\\login.txt", ofstream::app);
+		SingAdd.open("C:\\Users\\VS\\source\\repos\\My cours c++\\My cours c++\\users\\login.txt", ofstream::app);
 		SingAdd << endl;
-		SingAdd <<login<<endl;
+		SingAdd << quiz.login << endl;
 		SingAdd << password << endl;
 		SingAdd.close();
-		string str2 = "D:\\Study IT STEP academy\\Новая папка\\ConsoleApplication1\\ConsoleApplication1\\users\\"+login+".txt";
+		string str2 = "C:\\Users\\VS\\source\\repos\\My cours c++\\My cours c++\\users" + quiz.login + ".txt";
 		SingAdd.open(str2, ofstream::app);
 		SingAdd.close();
-		FirstLogin = true;
+		quiz.FirstLogin = true;
 
 	}if (isTrueLogin == true && isTruePassword == false) {
 		system("mode con cols=30 lines=10");
 		system("cls");
 		SetColor(4, 15);
-		cout<<"You enter incorect password "<<endl;
+		cout << "You enter incorect password " << endl;
 		Sleep(2000);
 		SetColor(0, 15);
-		Login();
+		Login(quiz);
 	}
 	else {
 		List();
 	}
-	
+
 	Clear;
-}
-
-int main() {
-	srand(time(NULL));
-	Login();
-
-	return 0;
 }
