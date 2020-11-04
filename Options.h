@@ -3,6 +3,9 @@
 #include<string>
 
 using namespace std;
+/// <summary>
+/// Структура варіантів 
+/// </summary>
 struct Options
 {
 	string variants;

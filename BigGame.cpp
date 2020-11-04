@@ -1,7 +1,11 @@
 #include"Quizzes.h"
 #include "Fuction.h"
 #include<conio.h>
-
+/// <summary>
+/// Функіція для додаткової гри якщо user відповів більш ніж на 7 відповідей
+/// </summary>
+/// <param name="quiz"></param>
+/// <param name="name"></param>
 void BigGame(Quizzes quiz,string name) {
 	SetColor(0, 15);
 	ifstream files;
@@ -22,7 +26,11 @@ void BigGame(Quizzes quiz,string name) {
 	Sleep(2000);
 	Clear;
 }
-
+/// <summary>
+/// Логіка для самої гри 
+/// </summary>
+/// <param name="quiz"></param>
+/// <param name="name"></param>
 void LogicGame(Quizzes quiz, string name)
 {
 	int win = 0;
@@ -370,6 +378,10 @@ void LogicGame(Quizzes quiz, string name)
 	win = 0;
 	xp = 0;
 }
+/// <summary>
+/// Функція що вибирає рандомну вікторину
+/// </summary>
+/// <param name="quiz"></param>
 void randomQuiz(Quizzes quiz) {
 	system("mode con cols=80 lines=10");
 	ifstream files;
@@ -420,6 +432,9 @@ void randomQuiz(Quizzes quiz) {
 	}
 	LogicGame(quiz, name);
 }
+/// <summary>
+/// Функція для виведення правил гри
+/// </summary>
 void rules() {
 	system("mode con cols=35 lines=20");
 	ifstream rul;
@@ -433,6 +448,10 @@ void rules() {
 	system("pause");
 	system("mode con cols=25 lines=10");
 }
+/// <summary>
+/// Функція для ведення списку нназв вікторин за вибраною категорею
+/// </summary>
+/// <param name="a"></param>
 void outputQuizzer( int a ) {
 	ifstream files;
 	string name;
@@ -542,6 +561,9 @@ void outputQuizzer( int a ) {
 		LogicGame(quiz, name);
 	}
 }
+/// <summary>
+/// Функція для виведення списку вікторин 
+/// </summary>
 void List() {
 	int achion = 1;
 	while (achion != 7) {
@@ -610,6 +632,10 @@ void List() {
 		}
 	}
 }
+/// <summary>
+/// Функція логінення
+/// </summary>
+/// <param name="quiz"></param>
 void Login(Quizzes quiz) {
 	system("title Game Quiz");
 	SetColor(0, 15);

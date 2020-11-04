@@ -1,6 +1,9 @@
 #pragma once
 #include"Questions.h"
 
+/// <summary>
+/// Головна структура з масивом запитань
+/// </summary>
 struct Quizzes
 {
 	int QuentityQuestion = 10;
