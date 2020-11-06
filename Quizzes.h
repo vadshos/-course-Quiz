@@ -2,7 +2,7 @@
 #include"Questions.h"
 
 /// <summary>
-/// Головна структура з масивом запитань
+/// Header struct with array question
 /// </summary>
 struct Quizzes
 {

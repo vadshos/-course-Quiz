@@ -4,7 +4,7 @@
 
 using namespace std;
 /// <summary>
-/// Структура варіантів 
+/// Struct  options
 /// </summary>
 struct Options
 {

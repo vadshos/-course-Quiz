@@ -1,11 +1,12 @@
 #include"Quizzes.h"
 #include "Fuction.h"
 #include<conio.h>
+
 /// <summary>
-/// Функіція для додаткової гри якщо user відповів більш ніж на 7 відповідей
+/// Outputs additional game,   if user answered true 7 and hight 
 /// </summary>
-/// <param name="quiz"></param>
-/// <param name="name"></param>
+/// <param name="quiz">struct quiz</param>
+/// <param name="name">name quiz</param>
 void BigGame(Quizzes quiz,string name) {
 	SetColor(0, 15);
 	ifstream files;
@@ -26,11 +27,12 @@ void BigGame(Quizzes quiz,string name) {
 	Sleep(2000);
 	Clear;
 }
+
 /// <summary>
-/// Логіка для самої гри 
+/// Logic game
 /// </summary>
-/// <param name="quiz"></param>
-/// <param name="name"></param>
+/// <param name="quiz">struct quiz</param>
+/// <param name="name">name quiz</param>
 void LogicGame(Quizzes quiz, string name)
 {
 	int win = 0;
@@ -378,10 +380,11 @@ void LogicGame(Quizzes quiz, string name)
 	win = 0;
 	xp = 0;
 }
+
 /// <summary>
-/// Функція що вибирає рандомну вікторину
+/// Function for check rand quiz
 /// </summary>
-/// <param name="quiz"></param>
+/// <param name="quiz">struct quiz</param>
 void randomQuiz(Quizzes quiz) {
 	system("mode con cols=80 lines=10");
 	ifstream files;
@@ -432,8 +435,9 @@ void randomQuiz(Quizzes quiz) {
 	}
 	LogicGame(quiz, name);
 }
+
 /// <summary>
-/// Функція для виведення правил гри
+/// Function for output rules quiz 
 /// </summary>
 void rules() {
 	system("mode con cols=35 lines=20");
@@ -448,10 +452,11 @@ void rules() {
 	system("pause");
 	system("mode con cols=25 lines=10");
 }
+
 /// <summary>
-/// Функція для ведення списку нназв вікторин за вибраною категорею
+/// Function for output name quiz by category
 /// </summary>
-/// <param name="a"></param>
+/// <param name="a">name category</param>
 void outputQuizzer( int a ) {
 	ifstream files;
 	string name;
@@ -561,8 +566,9 @@ void outputQuizzer( int a ) {
 		LogicGame(quiz, name);
 	}
 }
+
 /// <summary>
-/// Функція для виведення списку вікторин 
+/// Function for output list category quiz
 /// </summary>
 void List() {
 	int achion = 1;
@@ -632,10 +638,11 @@ void List() {
 		}
 	}
 }
+
 /// <summary>
-/// Функція логінення
+/// Fuction login/registration user
 /// </summary>
-/// <param name="quiz"></param>
+/// <param name="quiz">struct quiz</param>
 void Login(Quizzes quiz) {
 	system("title Game Quiz");
 	SetColor(0, 15);

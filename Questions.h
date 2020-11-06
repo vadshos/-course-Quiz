@@ -1,7 +1,7 @@
 #pragma once
 #include"Options.h"
 /// <summary>
-/// Структура запитань з масивом відповідей і запитанням 
+/// Struct with question and array options
 /// </summary>
 struct Questions
 {

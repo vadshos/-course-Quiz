@@ -1,7 +1,7 @@
 #include"Quizzes.h"
 #include"windows.h"
 /// <summary>
-/// Функція для зміну кольору тексту і фону 
+/// Function change text and background color
 /// </summary>
 /// <param name="text"></param>
 /// <param name="bg"></param>
