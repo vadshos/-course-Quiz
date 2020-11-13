@@ -1,5 +1,6 @@
 #include"Quizzes.h"
 #include"windows.h"
+
 /// <summary>
 /// Function change text and background color
 /// </summary>

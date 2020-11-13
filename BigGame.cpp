@@ -7,20 +7,20 @@
 /// </summary>
 /// <param name="quiz">struct quiz</param>
 /// <param name="name">name quiz</param>
-void BigGame(Quizzes quiz,string name) {
+void BigGame(Quizzes quiz, string name) {
 	SetColor(0, 15);
 	ifstream files;
-	string s = "quiz.bigGame";
+	string TemoVariable = "BigGame\\BigGame";
 	string options;
-	s += name;
-	files.open(s);
-	s = "";
-	getline(files, s);
-	cout << s;
-	getline(files, s);
+	TemoVariable += name;
+	files.open(TemoVariable);
+	TemoVariable = "";
+	getline(files, TemoVariable);
+	cout << TemoVariable;
+	getline(files, TemoVariable);
 	cout << "correct answer-> ";
 	cin >> options;
-	if (options == s) {
+	if (options == TemoVariable) {
 		quiz.BigWin = true;
 		cout << "You win big game my greeting";
 	}
@@ -39,7 +39,7 @@ void LogicGame(Quizzes quiz, string name)
 	int xp = 0;
 	int achion = 0;
 	int* UsedNumber = new int[quiz.QuentityQuestion];
-	int* arr = new int[10];
+	int* ArrayforWriteData = new int[10];
 	int  k = 0;
 	while (k != 10) {
 		int j = 0;
@@ -48,11 +48,11 @@ void LogicGame(Quizzes quiz, string name)
 			j = rand() % 10;
 			bool isTrue = true;
 			for (int i = 0; i < 10; i++) {
-				if (j == arr[i]) {
+				if (j == ArrayforWriteData[i]) {
 					isTrue = false;
 				}
 			}
-			arr[k] = j;
+			ArrayforWriteData[k] = j;
 			if (isTrue == true) {
 				k++;
 				break;
@@ -62,7 +62,7 @@ void LogicGame(Quizzes quiz, string name)
 	}
 	for (int g = 0; g < quiz.QuentityQuestion; g++)
 	{
-		int j = arr[g];
+		int j = ArrayforWriteData[g];
 		int a = 0;
 		while (a != 13) {
 			system("cls");
@@ -158,13 +158,13 @@ void LogicGame(Quizzes quiz, string name)
 	cout << "True options " << win << "/10" << endl;
 	SetColor(0, 15);
 	cout << endl;
-	if (win > 7) {
+	if (win > 0) {
 		cout << "Do you want to play a big game, win multiply your winnings twice lose lose your winnings.1.yes 2.no " << endl;
 		int  achion = 0;
 		cin >> achion;
 		if (achion == 1) {
 			quiz.bigGame = true;
-			BigGame(quiz , name);
+			BigGame(quiz, name);
 			if (quiz.BigWin == true) {
 				int index = 0;
 				ifstream ReadList;
@@ -195,7 +195,7 @@ void LogicGame(Quizzes quiz, string name)
 				ofstream WriteList;
 				WriteList.open("list.txt");
 
-				if (quiz.FirstLogin == false) {
+				if (quiz.BigWin == true) {
 					for (int i = 0; i < count; i++) {
 						int a = stoi(list[index + 1]);
 						xp += a;
@@ -221,7 +221,7 @@ void LogicGame(Quizzes quiz, string name)
 				}
 				WriteList.close();
 			}
-			else {
+			else if(quiz.BigWin == false&& quiz.bigGame == true){
 				int index = 0;
 				ifstream ReadList;
 				ReadList.open("list.txt");
@@ -304,8 +304,8 @@ void LogicGame(Quizzes quiz, string name)
 			WriteList.open("list.txt");
 			Sleep(1000);
 			if (quiz.FirstLogin == false) {
-				int a = stoi(list[index + 1]);
-				xp += a;
+				int previosXp = stoi(list[index + 1]);
+				xp += previosXp;
 				cout << "You win " << xp << " xp" << endl;
 				for (int i = 0; i < count; i++) {
 					if (i == index + 1) {
@@ -391,29 +391,29 @@ void randomQuiz(Quizzes quiz) {
 	string name;
 	files.open("random.txt");
 	int count = 0;
-	string* arr1 = new string[count];
+	string* ArrayForQuiz = new string[count];
 	while (!files.eof()) {
 		string* temp = new string[count + 1];
 		for (int i = 0; i < count; i++) {
-			temp[i] = arr1[i];
+			temp[i] = ArrayForQuiz[i];
 		}
 		getline(files, temp[count]);
-		delete[] arr1;
+		delete[] ArrayForQuiz;
 		count++;
-		arr1 = new string[count];
-		arr1 = temp;
+		ArrayForQuiz = new string[count];
+		ArrayForQuiz = temp;
 		temp = nullptr;
 		delete[] temp;
 	}
 	int index = rand() % count + 1;
-	name = arr1[index];
+	name = ArrayForQuiz[index];
 	string txt = ".txt";
 	name += txt;
 	files.close();
 	ifstream file;
 	file.open(name);
 
-	
+
 	for (int i = 0; i < quiz.QuentityQuestion; i++) {
 		getline(file, quiz.query[i].question);
 		for (int j = 0; j < quiz.query[i].QuentityVariants; j++) {
@@ -443,11 +443,11 @@ void rules() {
 	system("mode con cols=35 lines=20");
 	ifstream rul;
 	rul.open("rules.txt");
-	string r;
+	string stringRul;
 	while (!rul.eof()) {
-		r = "";
-		getline(rul, r);
-		cout << r << endl;
+		stringRul = "";
+		getline(rul, stringRul);
+		cout << stringRul << endl;
 	}
 	system("pause");
 	system("mode con cols=25 lines=10");
@@ -457,49 +457,49 @@ void rules() {
 /// Function for output name quiz by category
 /// </summary>
 /// <param name="a">name category</param>
-void outputQuizzer( int a ) {
+void outputQuizzer(int a) {
 	ifstream files;
 	string name;
 	int achion = 0;
 	if (a == 1) {
-		files.open("nameQuizzerProgramming.txt");
+		files.open("NameQuiz\\nameQuizzerProgramming.txt");
 	}
 	else if (a == 2) {
-		files.open("nameQuizzerAdministration.txt");
+		files.open("NameQuiz\\nameQuizzerAdministration.txt");
 	}
 	else if (a == 3) {
-		files.open("nameQuizzerLife.txt");
+		files.open("NameQuiz\\nameQuizzerLife.txt");
 	}
 
 
 	int count = 0;
-	string* arr1 = new string[count];
+	string* arryForWriteData = new string[count];
 	while (!files.eof()) {
 		string* temp = new string[count + 1];
 		for (int i = 0; i < count; i++) {
-			temp[i] = arr1[i];
+			temp[i] = arryForWriteData[i];
 		}
 		getline(files, temp[count]);
-		delete[] arr1;
+		delete[] arryForWriteData;
 		count++;
-		arr1 = new string[count];
+		arryForWriteData = new string[count];
 		for (int i = 0; i < count; i++) {
 
-			arr1[i] = temp[i];
+			arryForWriteData[i] = temp[i];
 		}
 		temp = nullptr;
 		delete[] temp;
 	}
 	string* temp = new string[count + 1];
 	for (int i = 0; i < count; i++) {
-		temp[i] = arr1[i];
+		temp[i] = arryForWriteData[i];
 	}
 	count++;
-	arr1 = new string[count];
+	arryForWriteData = new string[count];
 	temp[count - 1] = "back";
 	for (int i = 0; i < count; i++) {
 
-		arr1[i] = temp[i];
+		arryForWriteData[i] = temp[i];
 	}
 	while (a != 13) {
 		system("cls");
@@ -510,7 +510,7 @@ void outputQuizzer( int a ) {
 			if (i != achion) {
 				SetColor(0, 15);
 			}
-			cout << arr1[i] << endl;
+			cout << arryForWriteData[i] << endl;
 			SetColor(0, 15);
 		}
 
@@ -536,10 +536,10 @@ void outputQuizzer( int a ) {
 		Clear;
 		system("mode con cols=80 lines=10");
 		string txt = ".txt";
-		string n = arr1[achion] + txt;
+		string SecondName = arryForWriteData[achion] + txt;
 		files.close();
-		files.open(n);
-		name = n;
+		files.open("Quiz\\"+SecondName);
+		name = SecondName;
 		count = 0;
 		string* arr2 = new string[count];
 		Quizzes quiz;
@@ -617,7 +617,7 @@ void List() {
 		}
 		else if (achion == 4) {
 			Quizzes quiz;
-			randomQuiz( quiz);
+			randomQuiz(quiz);
 		}
 		else if (achion == 5) {
 			ifstream List;
@@ -686,12 +686,12 @@ void Login(Quizzes quiz) {
 	singIn.close();
 	if (quiz.SingIn == true) {
 		ofstream SingAdd;
-		SingAdd.open("C:\\Users\\VS\\source\\repos\\My cours c++\\My cours c++\\users\\login.txt", ofstream::app);
+		SingAdd.open("users\\login.txt", ofstream::app);
 		SingAdd << endl;
 		SingAdd << quiz.login << endl;
 		SingAdd << password << endl;
 		SingAdd.close();
-		string str2 = "C:\\Users\\VS\\source\\repos\\My cours c++\\My cours c++\\users" + quiz.login + ".txt";
+		string str2 = "users" + quiz.login + ".txt";
 		SingAdd.open(str2, ofstream::app);
 		SingAdd.close();
 		quiz.FirstLogin = true;

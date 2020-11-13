@@ -1,5 +1,6 @@
 #pragma once
 #include"Options.h"
+
 /// <summary>
 /// Struct with question and array options
 /// </summary>

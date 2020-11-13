@@ -3,6 +3,7 @@
 #include<string>
 
 using namespace std;
+
 /// <summary>
 /// Struct  options
 /// </summary>
